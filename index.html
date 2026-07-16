@@ -247,9 +247,12 @@
         </section>
     </main>
 
-    <footer class="p-6 lg:p-10 flex justify-between items-center bg-black text-white mt-20" id="footer">
+    <footer class="p-6 lg:p-10 flex flex-col md:flex-row justify-between items-center gap-6 bg-black text-white mt-20" id="footer">
         <div class="font-mono-tag text-xs uppercase tracking-widest text-gray-400">
             &copy; 2026 UDINUS — Hafizh Muzani
+        </div>
+        <div class="text-center font-serif-editorial italic text-gray-400 text-sm max-w-[400px]" id="footerQuote">
+            "..."
         </div>
         <button onclick="window.scrollTo({top:0})" class="text-sm hover:text-[var(--accent)] transition-colors cursor-pointer bg-transparent border-none text-white font-mono-tag">
             Back to Top &uarr;
@@ -399,6 +402,18 @@
                 closeDrawer();
             }
         });
+
+        // ── Daily Tech Quote ──
+        const quotes = [
+            '"Simplicity is prerequisite for reliability." — Edsger W. Dijkstra',
+            '"The best way to predict the future is to invent it." — Alan Kay',
+            '"Talk is cheap. Show me the code." — Linus Torvalds',
+            '"Programs must be written for people to read, and only incidentally for machines to execute." — Harold Abelson',
+            '"Make it work, make it right, make it fast." — Kent Beck',
+            '"Simple things should be simple, complex things should be possible." — Alan Kay'
+        ];
+        const day = new Date().getDate();
+        document.getElementById('footerQuote').textContent = quotes[day % quotes.length];
     </script>
 </body>
 </html>

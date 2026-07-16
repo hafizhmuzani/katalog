@@ -378,6 +378,26 @@
                 setTimeout(() => copyFeedback.style.opacity = '0', 1500);
             });
         });
+
+        // ── Keyboard shortcuts ──
+        window.addEventListener('keydown', (e) => {
+            const active = document.activeElement;
+            if (active && (active.tagName === 'INPUT' || active.tagName === 'TEXTAREA' || active.isContentEditable)) {
+                if (e.key === 'Escape') {
+                    active.blur();
+                }
+                return;
+            }
+
+            if (e.key === '/') {
+                e.preventDefault();
+                searchInput.focus();
+            } else if (e.key.toLowerCase() === 't') {
+                toggle.click();
+            } else if (e.key === 'Escape') {
+                closeDrawer();
+            }
+        });
     </script>
 </body>
 </html>

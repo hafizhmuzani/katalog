@@ -264,8 +264,13 @@
                 <div class="border border-gray-300 p-3"><span class="text-gray-500 block mb-1">Type</span><span id="drawerType">Tool</span></div>
                 <div class="border border-gray-300 p-3 col-span-2"><span class="text-gray-500 block mb-1">Command</span><code id="drawerCmd" class="text-[11px] normal-case break-all block"></code></div>
             </div>
-            <div class="border-t-strict pt-6">
+            <div class="border-t-strict pt-6 flex gap-3">
                 <a id="drawerLink" href="#" target="_blank" class="inline-block border border-black px-5 py-3 font-mono-tag text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors">Open</a>
+                <button id="drawerCopy" class="border border-black px-5 py-3 font-mono-tag text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors flex items-center gap-2">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="9" y="9" width="13" height="13" rx="0"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                    Copy
+                </button>
+                <span id="drawerCopyFeedback" class="font-mono-tag text-xs uppercase tracking-widest self-center text-[var(--accent)] opacity-0 transition-opacity">Copied.</span>
             </div>
         </div>
     </aside>
@@ -353,6 +358,18 @@
         });
         overlay.addEventListener('click', closeDrawer);
         closeBtn.addEventListener('click', closeDrawer);
+
+        // ── Copy command to clipboard ──
+        const copyBtn = document.getElementById('drawerCopy');
+        const copyFeedback = document.getElementById('drawerCopyFeedback');
+        copyBtn.addEventListener('click', () => {
+            const cmd = drawerCmd.textContent;
+            if (!cmd) return;
+            navigator.clipboard.writeText(cmd).then(() => {
+                copyFeedback.style.opacity = '1';
+                setTimeout(() => copyFeedback.style.opacity = '0', 1500);
+            });
+        });
     </script>
 </body>
 </html>

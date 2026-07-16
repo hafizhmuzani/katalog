@@ -16,6 +16,21 @@
             --border: #d4d4ce;
         }
 
+        /* Dark mode (Atelier Invert) — toggled by JS via [data-theme="dark"] */
+        [data-theme="dark"] {
+            --bg: #0e0e0d;
+            --fg: #f5f5f3;
+            --border: #2a2a28;
+        }
+        [data-theme="dark"] .hover-riso:hover { color: var(--accent); }
+        [data-theme="dark"] .group:hover { background-color: #1a1a18; }
+        [data-theme="dark"] .text-gray-600 { color: #a0a09a; }
+        [data-theme="dark"] .text-gray-400 { color: #7a7a76; }
+        [data-theme="dark"] .text-gray-500 { color: #888884; }
+        [data-theme="dark"] .border-gray-300 { border-color: var(--border); }
+        [data-theme="dark"] .border-gray-400 { border-color: var(--border); }
+        [data-theme="dark"] .bg-hover-riso:hover { background-color: var(--accent); color: black; border-color: var(--accent); }
+
         body {
             background-color: var(--bg);
             color: var(--fg);
@@ -64,24 +79,34 @@
     <main class="w-full">
         <section class="layout-grid min-h-[45vh] lg:min-h-[60vh]">
             <!-- Col 1: Utility / Meta -->
-            <div class="border-r-strict p-6 lg:p-10 flex flex-col justify-end hidden md:flex">
-                <p class="font-mono-tag text-xs text-gray-500 mb-4 uppercase tracking-widest">Index // 2026</p>
-                <p class="text-sm leading-relaxed max-w-[200px]">
-                    Kumpulan utilitas CLI, skrip rotasi proxy, dan sistem terdistribusi personal.
-                </p>
+            <div class="border-r-strict p-6 lg:p-10 flex flex-col justify-between hidden md:flex">
+                <div>
+                    <p class="font-mono-tag text-xs text-gray-500 mb-4 uppercase tracking-widest">Index // 2026</p>
+                    <p class="text-sm leading-relaxed max-w-[200px]">
+                        Kumpulan utilitas CLI, skrip rotasi proxy, dan sistem terdistribusi personal.
+                    </p>
+                </div>
+                <div class="space-y-2 text-xs font-mono-tag uppercase tracking-[0.2em] text-gray-500">
+                    <div data-meta="theme-label">Theme: Atelier</div>
+                    <div>Mode: Editorial / Anti-Slop</div>
+                </div>
             </div>
             
             <!-- Col 2: Heavy Editorial Type -->
             <div class="p-6 lg:p-10 xl:p-16 flex flex-col justify-center">
+                <div class="flex items-center justify-between gap-4 mb-5 text-xs font-mono-tag uppercase tracking-[0.2em] text-gray-500">
+                    <span>Live Catalog</span>
+                    <button id="themeToggle" class="border border-gray-300 px-3 py-2 hover:bg-black hover:text-white transition-colors">Invert</button>
+                </div>
                 <h1 class="text-6xl md:text-8xl xl:text-[9rem] font-serif-editorial leading-[0.9] tracking-tighter mb-8">
                     Personal<br/>
                     <span class="italic text-gray-400">Toolkit.</span>
                 </h1>
                 
-                <div class="flex items-center gap-6 mt-4">
-                    <input type="text" id="searchInput" placeholder="Cari tool..." class="bg-transparent border border-gray-400 rounded-none px-4 py-3 font-mono-tag text-sm w-64 focus:outline-none focus:border-black transition-colors placeholder-gray-500">
-                    <button class="border border-black px-6 py-3 font-mono-tag text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
-                        Filter 
+                <div class="flex items-center gap-4 mt-4 flex-wrap">
+                    <input type="text" id="searchInput" placeholder="Cari tool..." class="bg-transparent border border-gray-400 rounded-none px-4 py-3 font-mono-tag text-sm w-full sm:w-72 focus:outline-none focus:border-black transition-colors placeholder-gray-500">
+                    <button id="resetFilter" class="border border-black px-6 py-3 font-mono-tag text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                        Reset
                     </button>
                 </div>
             </div>
@@ -90,14 +115,10 @@
         <!-- Tools Index List -->
         <section class="w-full" id="toolsList">
             
-            <!-- Item: Tempmail -->
+            <!-- 01 / Tempmail -->
             <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
                 <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
-                    <!-- Email icon -->
-                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
-                        <rect x="2" y="4" width="20" height="16" rx="0"/>
-                        <path d="M2 4l10 9 10-9"/>
-                    </svg>
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="4" width="20" height="16" rx="0"/><path d="M2 4l10 9 10-9"/></svg>
                     <span class="font-mono-tag text-sm">01 / D1</span>
                 </div>
                 <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
@@ -105,77 +126,130 @@
                         <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">CF-TempMail API</h3>
                         <p class="text-sm text-gray-600 font-serif-editorial italic">Cloudflare Worker + D1 Database + Gmail OAuth</p>
                     </div>
-                    <a href="https://github.com/hafizhmuzani" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">
-                        Inspect
-                    </a>
+                    <a href="https://github.com/hafizhmuzani" target="_blank" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">Inspect →</a>
                 </div>
             </div>
 
-            <!-- Item: VPNX -->
+            <!-- 02 / VPNX -->
             <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
                 <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
-                    <!-- Network icon -->
-                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="12" cy="12" r="9"/>
-                        <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
-                    </svg>
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/></svg>
                     <span class="font-mono-tag text-sm">02 / NET</span>
                 </div>
                 <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
                     <div>
                         <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">VPNX Auto-Rotate</h3>
-                        <p class="text-sm text-gray-600 font-serif-editorial italic">Local Docker Proxy Setup / Python Stdlib</p>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">Docker proxy rotation stack / Python stdlib</p>
                     </div>
-                    <a href="#" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase bg-hover-riso transition-colors">
-                        Inspect
-                    </a>
+                    <a href="#" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase bg-hover-riso transition-colors">Inspect →</a>
                 </div>
             </div>
 
-            <!-- Item: ViperCut -->
-            <div class="layout-grid group hover:bg-white transition-colors cursor-crosshair border-b-0">
+            <!-- 03 / ViperCut -->
+            <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
                 <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
-                    <!-- Scissors / cut icon -->
-                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
-                        <circle cx="6" cy="6" r="3"/>
-                        <circle cx="6" cy="18" r="3"/>
-                        <path d="M20 4L8 12m0 0l12 8M8 12L4 8m4 4l-4 4"/>
-                    </svg>
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M20 4L8 12m0 0l12 8M8 12L4 8m4 4l-4 4"/></svg>
                     <span class="font-mono-tag text-sm">03 / MED</span>
                 </div>
                 <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
                     <div>
-                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">ViperCut (WIP)</h3>
-                        <p class="text-sm text-gray-600 font-serif-editorial italic">AI auto-clipper, YouTube → Shorts pipeline</p>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">ViperCut <span class="text-xs align-super text-gray-400 font-mono-tag">WIP</span></h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">AI auto-clipper — YouTube → Shorts pipeline</p>
                     </div>
-                    <a href="#" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">
-                        Inspect
-                    </a>
+                    <a href="#" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">Inspect →</a>
+                </div>
+            </div>
+
+            <!-- 04 / Profile Repo -->
+            <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
+                <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                    <span class="font-mono-tag text-sm">04 / WEB</span>
+                </div>
+                <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
+                    <div>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">hafizhmuzani Profile</h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">GitHub profile README — venom dark theme</p>
+                    </div>
+                    <a href="https://github.com/hafizhmuzani" target="_blank" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">Inspect →</a>
+                </div>
+            </div>
+
+            <!-- 05 / Chanhdai Fork -->
+            <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
+                <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="0"/><path d="M3 9h18M9 21V9"/></svg>
+                    <span class="font-mono-tag text-sm">05 / NX</span>
+                </div>
+                <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
+                    <div>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">hafizhmuzani.my.id</h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">Next.js portfolio fork — chanhdai.com</p>
+                    </div>
+                    <a href="https://hafizhmuzani.my.id" target="_blank" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">Inspect →</a>
+                </div>
+            </div>
+
+            <!-- 06 / Katalog -->
+            <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
+                <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+                    <span class="font-mono-tag text-sm">06 / THIS</span>
+                </div>
+                <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
+                    <div>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">Katalog <span class="text-xs font-mono-tag text-gray-400">self-referencing</span></h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">This page — Hallmark Atelier editorial theme</p>
+                    </div>
+                    <span class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase text-gray-400">Current</span>
                 </div>
             </div>
 
         </section>
     </main>
 
-    <footer class="p-6 lg:p-10 flex justify-between items-center bg-black text-white mt-20">
+    <footer class="p-6 lg:p-10 flex justify-between items-center bg-black text-white mt-20" id="footer">
         <div class="font-mono-tag text-xs uppercase tracking-widest text-gray-400">
-            &copy; 2026 UDINUS
+            &copy; 2026 UDINUS — Hafizh Muzani
         </div>
-        <div class="text-sm hover:text-[var(--accent)] transition-colors cursor-pointer">
+        <button onclick="window.scrollTo({top:0})" class="text-sm hover:text-[var(--accent)] transition-colors cursor-pointer bg-transparent border-none text-white font-mono-tag">
             Back to Top &uarr;
-        </div>
+        </button>
     </footer>
 
     <script>
+        // ── Theme toggle (Atelier / Atelier Invert) ──
+        const toggle = document.getElementById('themeToggle');
+        const label  = document.querySelector('[data-meta="theme-label"]');
+        const saved  = localStorage.getItem('katalog-theme');
+        if (saved) document.documentElement.dataset.theme = saved;
+
+        toggle.addEventListener('click', () => {
+            const next = document.documentElement.dataset.theme === 'dark' ? '' : 'dark';
+            document.documentElement.dataset.theme = next;
+            localStorage.setItem('katalog-theme', next);
+            toggle.textContent = next === 'dark' ? 'Inverted' : 'Invert';
+            if (label) label.textContent = next === 'dark' ? 'Theme: Atelier Invert' : 'Theme: Atelier';
+        });
+        if (document.documentElement.dataset.theme === 'dark') {
+            toggle.textContent = 'Inverted';
+            if (label) label.textContent = 'Theme: Atelier Invert';
+        }
+
+        // ── Search filter ──
         const searchInput = document.getElementById('searchInput');
-        const tools = document.querySelectorAll('#toolsList > div');
+        const tools       = document.querySelectorAll('#toolsList > div');
 
         searchInput.addEventListener('input', (e) => {
-            const query = e.target.value.toLowerCase();
-            tools.forEach(tool => {
-                const text = tool.textContent.toLowerCase();
-                tool.style.display = text.includes(query) ? 'grid' : 'none';
-            });
+            const q = e.target.value.toLowerCase();
+            tools.forEach(t => t.style.display = t.textContent.toLowerCase().includes(q) ? 'grid' : 'none');
+        });
+
+        // ── Reset button ──
+        document.getElementById('resetFilter').addEventListener('click', () => {
+            searchInput.value = '';
+            tools.forEach(t => t.style.display = 'grid');
+            searchInput.focus();
         });
     </script>
 </body>

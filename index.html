@@ -61,6 +61,28 @@
         
         .hover-riso:hover { color: var(--accent); }
         .bg-hover-riso:hover { background-color: var(--accent); color: white; border-color: var(--accent); }
+
+        /* Drawer Anti-Slop */
+        #drawerOverlay {
+            position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.4);
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+            z-index: 40;
+        }
+        #drawerOverlay.active { opacity: 1; pointer-events: auto; }
+        
+        #inspectDrawer {
+            position: fixed; top: 0; right: -100%; bottom: 0;
+            width: 100%; max-width: 480px;
+            background: var(--bg);
+            border-left: 1px solid var(--border);
+            z-index: 50;
+            transition: right 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            overflow-y: auto;
+        }
+        #inspectDrawer.open { right: 0; }
+        [data-theme="dark"] #inspectDrawer { box-shadow: -10px 0 30px rgba(0,0,0,0.8); }
     </style>
 </head>
 <body class="min-h-screen">
@@ -225,6 +247,29 @@
         </button>
     </footer>
 
+    <!-- Minimal Drawer -->
+    <div id="drawerOverlay"></div>
+    <aside id="inspectDrawer" aria-hidden="true">
+        <div class="p-6 lg:p-8 border-b-strict flex items-center justify-between">
+            <div>
+                <div class="font-mono-tag text-xs uppercase tracking-[0.2em] text-gray-500">Inspect Detail</div>
+                <h2 id="drawerTitle" class="text-2xl font-serif-editorial mt-2">Title</h2>
+            </div>
+            <button id="drawerClose" class="font-mono-tag text-sm border border-gray-300 px-3 py-2 hover:bg-black hover:text-white transition-colors">✕</button>
+        </div>
+        <div class="p-6 lg:p-8 space-y-6">
+            <p id="drawerDesc" class="text-sm leading-relaxed text-gray-600 font-serif-editorial italic"></p>
+            <div class="grid grid-cols-2 gap-3 text-xs font-mono-tag uppercase tracking-widest">
+                <div class="border border-gray-300 p-3"><span class="text-gray-500 block mb-1">Status</span><span id="drawerStatus">Live</span></div>
+                <div class="border border-gray-300 p-3"><span class="text-gray-500 block mb-1">Type</span><span id="drawerType">Tool</span></div>
+                <div class="border border-gray-300 p-3 col-span-2"><span class="text-gray-500 block mb-1">Command</span><code id="drawerCmd" class="text-[11px] normal-case break-all block"></code></div>
+            </div>
+            <div class="border-t-strict pt-6">
+                <a id="drawerLink" href="#" target="_blank" class="inline-block border border-black px-5 py-3 font-mono-tag text-xs uppercase tracking-widest hover:bg-black hover:text-white transition-colors">Open</a>
+            </div>
+        </div>
+    </aside>
+
     <script>
         // ── Theme toggle (Atelier / Atelier Invert) ──
         const toggle = document.getElementById('themeToggle');
@@ -259,6 +304,55 @@
             tools.forEach(t => t.style.display = 'grid');
             searchInput.focus();
         });
+
+        // ── Inspect drawer ──
+        const drawer = document.getElementById('inspectDrawer');
+        const overlay = document.getElementById('drawerOverlay');
+        const closeBtn = document.getElementById('drawerClose');
+        const drawerTitle = document.getElementById('drawerTitle');
+        const drawerDesc = document.getElementById('drawerDesc');
+        const drawerStatus = document.getElementById('drawerStatus');
+        const drawerType = document.getElementById('drawerType');
+        const drawerCmd = document.getElementById('drawerCmd');
+        const drawerLink = document.getElementById('drawerLink');
+
+        const inspectData = {
+            'CF-TempMail API': { status: 'Live', type: 'Cloudflare Worker', cmd: 'curl https://tempmail-api.hafizmuzani011.workers.dev', link: 'https://github.com/hafizhmuzani' },
+            'VPNX Auto-Rotate': { status: 'Live', type: 'Proxy stack', cmd: 'python vpnx.py --rotate', link: '#' },
+            'ViperCut': { status: 'Work in Progress', type: 'AI clipper', cmd: 'python app.py --source youtube --prompt "clip highlights"', link: '#' },
+            'hafizhmuzani Profile': { status: 'Live', type: 'GitHub profile', cmd: 'open https://github.com/hafizhmuzani', link: 'https://github.com/hafizhmuzani' },
+            'hafizhmuzani.my.id': { status: 'Live', type: 'Next.js site', cmd: 'open https://hafizhmuzani.my.id', link: 'https://hafizhmuzani.my.id' },
+            'Katalog': { status: 'Live', type: 'Static catalog', cmd: 'open https://hafizhmuzani.github.io/katalog/', link: 'https://hafizhmuzani.github.io/katalog/' }
+        };
+
+        function openDrawer(title) {
+            const data = inspectData[title];
+            if (!data) return;
+            drawerTitle.textContent = title;
+            drawerDesc.textContent = `${data.type} — ${data.status.toLowerCase()} system note.`;
+            drawerStatus.textContent = data.status;
+            drawerType.textContent = data.type;
+            drawerCmd.textContent = data.cmd;
+            drawerLink.href = data.link;
+            drawer.classList.add('open');
+            overlay.classList.add('active');
+            drawer.setAttribute('aria-hidden', 'false');
+        }
+        function closeDrawer() {
+            drawer.classList.remove('open');
+            overlay.classList.remove('active');
+            drawer.setAttribute('aria-hidden', 'true');
+        }
+
+        document.querySelectorAll('#toolsList a').forEach(a => {
+            a.addEventListener('click', (e) => {
+                e.preventDefault();
+                const title = a.closest('.p-6, .lg\\:p-10')?.querySelector('h3')?.textContent?.replace(/\s*WIP$/, '').trim();
+                openDrawer(title);
+            });
+        });
+        overlay.addEventListener('click', closeDrawer);
+        closeBtn.addEventListener('click', closeDrawer);
     </script>
 </body>
 </html>

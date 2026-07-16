@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Katalog Peralatan / Hafizh Muzani</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Hallmark Macrostructure: ATELIER (Editorial, Asymmetric, No-Slop) */
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;500;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Space+Mono&display=swap');
+        
+        :root {
+            --bg: #f9f9f8;
+            --fg: #111111;
+            --accent: #ff4713; /* Riso orange for strict anchor */
+            --border: #d4d4ce;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: 'Space Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .font-serif-editorial { font-family: 'Playfair Display', serif; }
+        .font-mono-tag { font-family: 'Space Mono', monospace; }
+
+        /* Asymmetric grid overrides */
+        .layout-grid {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .border-r-strict { border-right: 1px solid var(--border); }
+        .border-b-strict { border-bottom: 1px solid var(--border); }
+        
+        .hover-riso:hover { color: var(--accent); }
+        .bg-hover-riso:hover { background-color: var(--accent); color: white; border-color: var(--accent); }
+    </style>
+</head>
+<body class="min-h-screen">
+    
+    <!-- Heavy Top Nav -->
+    <header class="border-b-strict flex justify-between items-center p-6 lg:p-10">
+        <div class="flex items-center gap-4">
+            <svg class="w-8 h-8 text-black transition-transform hover:rotate-12 duration-300" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Custom geometric H monogram -->
+                <rect x="15" y="15" width="20" height="70" fill="currentColor"/>
+                <rect x="65" y="15" width="20" height="70" fill="currentColor"/>
+                <rect x="35" y="45" width="30" height="10" fill="currentColor"/>
+                <!-- Strict riso accent point -->
+                <circle cx="50" cy="20" r="6" fill="var(--accent)"/>
+            </svg>
+            <div class="text-sm uppercase tracking-widest font-bold">H. Muzani</div>
+        </div>
+        <div class="font-mono-tag text-xs text-gray-500 uppercase tracking-widest">
+            Semarang — ID
+        </div>
+    </header>
+
+    <!-- Asymmetric Hero -->
+    <main class="w-full">
+        <section class="layout-grid min-h-[45vh] lg:min-h-[60vh]">
+            <!-- Col 1: Utility / Meta -->
+            <div class="border-r-strict p-6 lg:p-10 flex flex-col justify-end hidden md:flex">
+                <p class="font-mono-tag text-xs text-gray-500 mb-4 uppercase tracking-widest">Index // 2026</p>
+                <p class="text-sm leading-relaxed max-w-[200px]">
+                    Kumpulan utilitas CLI, skrip rotasi proxy, dan sistem terdistribusi personal.
+                </p>
+            </div>
+            
+            <!-- Col 2: Heavy Editorial Type -->
+            <div class="p-6 lg:p-10 xl:p-16 flex flex-col justify-center">
+                <h1 class="text-6xl md:text-8xl xl:text-[9rem] font-serif-editorial leading-[0.9] tracking-tighter mb-8">
+                    Personal<br/>
+                    <span class="italic text-gray-400">Toolkit.</span>
+                </h1>
+                
+                <div class="flex items-center gap-6 mt-4">
+                    <input type="text" id="searchInput" placeholder="Cari tool..." class="bg-transparent border border-gray-400 rounded-none px-4 py-3 font-mono-tag text-sm w-64 focus:outline-none focus:border-black transition-colors placeholder-gray-500">
+                    <button class="border border-black px-6 py-3 font-mono-tag text-sm uppercase tracking-widest hover:bg-black hover:text-white transition-colors">
+                        Filter 
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Tools Index List -->
+        <section class="w-full" id="toolsList">
+            
+            <!-- Item: Tempmail -->
+            <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
+                <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
+                    <!-- Email icon -->
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="2" y="4" width="20" height="16" rx="0"/>
+                        <path d="M2 4l10 9 10-9"/>
+                    </svg>
+                    <span class="font-mono-tag text-sm">01 / D1</span>
+                </div>
+                <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
+                    <div>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">CF-TempMail API</h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">Cloudflare Worker + D1 Database + Gmail OAuth</p>
+                    </div>
+                    <a href="https://github.com/hafizhmuzani" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">
+                        Inspect
+                    </a>
+                </div>
+            </div>
+
+            <!-- Item: VPNX -->
+            <div class="layout-grid border-b-strict group hover:bg-white transition-colors cursor-crosshair">
+                <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
+                    <!-- Network icon -->
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="12" cy="12" r="9"/>
+                        <path d="M3 12h18M12 3a14 14 0 010 18M12 3a14 14 0 000 18"/>
+                    </svg>
+                    <span class="font-mono-tag text-sm">02 / NET</span>
+                </div>
+                <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
+                    <div>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">VPNX Auto-Rotate</h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">Local Docker Proxy Setup / Python Stdlib</p>
+                    </div>
+                    <a href="#" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase bg-hover-riso transition-colors">
+                        Inspect
+                    </a>
+                </div>
+            </div>
+
+            <!-- Item: ViperCut -->
+            <div class="layout-grid group hover:bg-white transition-colors cursor-crosshair border-b-0">
+                <div class="border-r-strict p-6 lg:p-10 flex items-center gap-3">
+                    <!-- Scissors / cut icon -->
+                    <svg class="w-5 h-5 text-gray-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="6" cy="6" r="3"/>
+                        <circle cx="6" cy="18" r="3"/>
+                        <path d="M20 4L8 12m0 0l12 8M8 12L4 8m4 4l-4 4"/>
+                    </svg>
+                    <span class="font-mono-tag text-sm">03 / MED</span>
+                </div>
+                <div class="p-6 lg:p-10 flex justify-between items-start md:items-center flex-col md:flex-row gap-4">
+                    <div>
+                        <h3 class="text-3xl font-medium tracking-tight mb-2 hover-riso transition-colors">ViperCut (WIP)</h3>
+                        <p class="text-sm text-gray-600 font-serif-editorial italic">AI auto-clipper, YouTube → Shorts pipeline</p>
+                    </div>
+                    <a href="#" class="border border-gray-300 rounded-none px-4 py-2 font-mono-tag text-xs uppercase hover:bg-black hover:text-white transition-colors">
+                        Inspect
+                    </a>
+                </div>
+            </div>
+
+        </section>
+    </main>
+
+    <footer class="p-6 lg:p-10 flex justify-between items-center bg-black text-white mt-20">
+        <div class="font-mono-tag text-xs uppercase tracking-widest text-gray-400">
+            &copy; 2026 UDINUS
+        </div>
+        <div class="text-sm hover:text-[var(--accent)] transition-colors cursor-pointer">
+            Back to Top &uarr;
+        </div>
+    </footer>
+
+    <script>
+        const searchInput = document.getElementById('searchInput');
+        const tools = document.querySelectorAll('#toolsList > div');
+
+        searchInput.addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase();
+            tools.forEach(tool => {
+                const text = tool.textContent.toLowerCase();
+                tool.style.display = text.includes(query) ? 'grid' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
